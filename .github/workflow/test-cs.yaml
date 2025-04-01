@@ -1,9 +1,8 @@
 name: Qualité de Code
 
-on:
-  push:
-    branches:
-      - pipeline  
+on: [push]
+  
+    
 
 jobs:
   pipeline:
@@ -11,11 +10,9 @@ jobs:
 
     steps:
       - name: Afficher les fichiers du répertoire
-        run: |
-          echo "Les fichiers du répertoire sont :"
+        run: 
           ls -la
 
       - name: Afficher le répertoire où se trouvent les fichiers
-        run: |
-          echo "Le répertoire actuel est :"
+        run: 
           pwd
