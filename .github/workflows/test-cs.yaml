@@ -1,28 +1,39 @@
 name: Qualité de Code
 
-on: [push]
-  
-    
+on:
+  push:
+    branches:
+      - main  # Remplace "main" par le nom de ta branche si nécessaire
 
 jobs:
   pipeline:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Choisir le runner Ubuntu
 
     steps:
-      
+      - name: Checkout du code
+        uses: actions/checkout@v4  # Récupérer le code du dépôt
+
       - name: Installer PHP
-        run: 
-          sudo apt update
-          sudo apt-get update && sudo apt-get install -y php php-cli php-xml php-mbstring  # Correction de la commande
+        run: |
+          sudo apt-get update && sudo apt-get install -y php php-cli php-xml php-mbstring  # Utilisation correcte de apt-get
+
       - name: Installer Composer
-        run: 
+        run: |
           curl -sS https://getcomposer.org/installer | php
-          sudo mv composer.phar /usr/local/bin/composer
+          sudo mv composer.phar /usr/local/bin/composer  # Déplacer Composer vers un emplacement global
 
       - name: Installer PHP_CodeSniffer
-        run: 
+        run: |
           composer require --dev squizlabs/php_codesniffer
 
-      - name: Linter PHP_CodeSniffer (PHP Standards)
-        run: 
-          vendor/bin/phpcs --standard=PSR12 C:\Users\lenovo\td5  # Remplace "src" par ton répertoire de code
+      - name: Linter PHP_CodeSniffer (PSR-12)
+        run: |
+          vendor/bin/phpcs --standard=PSR12 src  # Change "src" par ton répertoire
+
+      - name: Commit et Push des modifications
+        run: |
+          git config --global user.name "Your Name"
+          git config --global user.email "youremail@example.com"
+          git add .
+          git commit -m "Ajout des résultats du linting PHP_CodeSniffer"
+          git push
