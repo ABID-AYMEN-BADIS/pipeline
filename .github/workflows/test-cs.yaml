@@ -24,8 +24,8 @@ jobs:
         run: |
           composer require --dev squizlabs/php_codesniffer
 
-      - name: Linter PHP_CodeSniffer (PSR-12)
+      - name: Linter PHP_CodeSniffer (PSR-2)
         run: |
-          vendor/bin/phpcs --standard=PSR12 src 
+          vendor/bin/phpcs --standard=PSR2 src 
 
    
