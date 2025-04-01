@@ -6,11 +6,11 @@ on: [push]
 
 jobs:
   pipeline:
-    runs-on: ubuntu-latest  # Choisir le runner Ubuntu
+    runs-on: ubuntu-latest  
 
     steps:
       - name: Checkout du code
-        uses: actions/checkout@v4  # Récupérer le code du dépôt
+        uses: actions/checkout@v4  
 
       - name: Installer PHP
         run: |
@@ -19,20 +19,13 @@ jobs:
       - name: Installer Composer
         run: |
           curl -sS https://getcomposer.org/installer | php
-          sudo mv composer.phar /usr/local/bin/composer  # Déplacer Composer vers un emplacement global
-
+          sudo mv composer.phar /usr/local/bin/composer  
       - name: Installer PHP_CodeSniffer
         run: |
           composer require --dev squizlabs/php_codesniffer
 
       - name: Linter PHP_CodeSniffer (PSR-12)
         run: |
-          vendor/bin/phpcs --standard=PSR12 src  # Change "src" par ton répertoire
+          vendor/bin/phpcs --standard=PSR12 src 
 
-      - name: Commit et Push des modifications
-        run: |
-          git config --global user.name "Your Name"
-          git config --global user.email "youremail@example.com"
-          git add .
-          git commit -m "Ajout des résultats du linting PHP_CodeSniffer"
-          git push
+   
