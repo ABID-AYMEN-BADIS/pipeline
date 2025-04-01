@@ -1,0 +1,22 @@
+name: Check File Structure
+
+on:
+  pull_request:
+    branches:
+      - main
+      
+
+jobs:
+  check_structure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+
+      - name: Run structure check script
+        run: python scripts/check_structure.py
