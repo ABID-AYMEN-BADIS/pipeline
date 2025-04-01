@@ -1,0 +1,21 @@
+name: Qualité de Code
+
+on:
+  push:
+    branches:
+      - pipeline  
+
+jobs:
+  pipeline:
+    runs-on: macos-latest
+
+    steps:
+      - name: Afficher les fichiers du répertoire
+        run: |
+          echo "Les fichiers du répertoire sont :"
+          ls -la
+
+      - name: Afficher le répertoire où se trouvent les fichiers
+        run: |
+          echo "Le répertoire actuel est :"
+          pwd
