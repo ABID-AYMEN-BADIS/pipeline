@@ -17,6 +17,9 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: '3.x'
+          
+      - name: Debug file structure
+        run: ls -R .github/scripts
 
       - name: Run structure check script
-        run: python scripts/check_structure.py
+        run: python .github/scripts/check_structure.py
