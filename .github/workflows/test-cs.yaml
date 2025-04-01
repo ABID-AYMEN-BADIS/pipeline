@@ -6,13 +6,17 @@ on: [push]
 
 jobs:
   pipeline:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout du code
-        uses: actions/checkout@v4  
+      
+      - name: Installer PHP
+        run: 
+          sudo apt update
+          sudo apt install -y php php-cli php-xml php-mbstring  # Installer PHP et ses extensions nécessaires
+
       - name: Installer Composer
-        run:
+        run: 
           curl -sS https://getcomposer.org/installer | php
           sudo mv composer.phar /usr/local/bin/composer
 
