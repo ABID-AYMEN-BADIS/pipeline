@@ -11,13 +11,13 @@ allowed_extensions = {
 
 def check_directory_structure():
     for directory, extensions in allowed_extensions.items():
-        if not os.path.exists(directory):
-            continue  # Si le dossier n'existe pas, on passe au suivant
+        if not os.path.isdir(directory):
+            continue  # Si le dossier n'existe pas, on l'ignore
 
         for root, _, files in os.walk(directory):
             for file in files:
                 file_path = os.path.join(root, file)  # Obtenir le chemin complet
-                file_extension = os.path.splitext(file)[1]  # Extraire l'extension
+                file_extension = os.path.splitext(file)[1].lower()  # Extension en minuscule
 
                 # Vérifie si l'extension est autorisée pour ce dossier
                 if file_extension not in extensions:
