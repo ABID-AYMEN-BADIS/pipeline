@@ -11,10 +11,15 @@ jobs:
     steps:
       - name: Checkout du code
         uses: actions/checkout@v4  
-      - name: Afficher les fichiers du répertoire
-        run: 
-          ls -la
+      - name: Installer Composer
+        run:
+          curl -sS https://getcomposer.org/installer | php
+          sudo mv composer.phar /usr/local/bin/composer
 
-      - name: Afficher le répertoire où se trouvent les fichiers
+      - name: Installer PHP_CodeSniffer
         run: 
-          pwd
+          composer require --dev squizlabs/php_codesniffer
+
+      - name: Linter PHP_CodeSniffer (PHP Standards)
+        run: 
+          vendor/bin/phpcs --standard=PSR12 C:\Users\lenovo\td5  # Remplace "src" par ton répertoire de code
