@@ -1,9 +1,8 @@
 name: Qualité de Code
 
-on:
-  push:
-    branches:
-      - main  # Remplace "main" par le nom de ta branche si nécessaire
+on: [push]
+  
+    
 
 jobs:
   pipeline:
