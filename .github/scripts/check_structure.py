@@ -1,22 +1,30 @@
 import os
 import sys
 
+# Définition des extensions autorisées pour chaque dossier
+allowed_extensions = {
+    "site": [".html", ".php"],
+    "site/img": [".png", ".jpg"],
+    "site/css": [".css"],
+    "site/js": [".js"]
+}
+
 def check_directory_structure():
-    allowed_extensions = {
-        "site": [".html", ".php"],
-        "site/img": [".png", ".jpg"],
-        "site/css": [".css"],
-        "site/js": [".js"]
-    }
-    
     for directory, extensions in allowed_extensions.items():
-        if os.path.exists(directory):
-            for root, _, files in os.walk(directory):
-                for file in files:
-                    if not any(file.endswith(ext) for ext in extensions):
-                        print(f"Erreur: {file} dans {root} n'a pas une extension autorisée.")
-                        sys.exit(1)
-    print("Arborescence et extensions conformes.")
+        if not os.path.exists(directory):
+            continue  # Si le dossier n'existe pas, on passe au suivant
+
+        for root, _, files in os.walk(directory):
+            for file in files:
+                file_path = os.path.join(root, file)  # Obtenir le chemin complet
+                file_extension = os.path.splitext(file)[1]  # Extraire l'extension
+
+                # Vérifie si l'extension est autorisée pour ce dossier
+                if file_extension not in extensions:
+                    print(f"❌ Erreur : {file_path} a une extension non autorisée ({file_extension}) !")
+                    sys.exit(1)  # Arrêter l'exécution en cas d'erreur
+
+    print("✅ Arborescence et extensions conformes.")
 
 if __name__ == "__main__":
     check_directory_structure()
